@@ -6,23 +6,23 @@ A few of my routers need to be rebooted periodically, otherwise they slow down. 
 
 So the next thing would be to run a script somewhere that connects to the router and reboot the thing. But how exactly?
 
-<img  width="61%" src="images/SomethingToWorkWith.png?raw=true" />
+<img  width="80%" src="images/SomethingToWorkWith.png?raw=true" />
 
 A quick portscan with the useful IP Scanner tool (http://10base-t.com/macintosh-software/ip-scanner/) revealed that SSH and TELNET are available
 
 Let's try SSH:
 
-<img  width="61%" src="images/SshIsNotForUs.png" />
+<img  width="80%" src="images/SshIsNotForUs.png" />
 Fail, they keep ssh around only for the Tether 2.0 App
 
 Let's try telnet:
 
-<img  width="61%" src="images/telnetOnC2.png" />
-<img  width="61%" src="images/rebootByTelnetWorksOnC2.png" />
+<img  width="80%" src="images/telnetOnC2.png" />
+<img  width="80%" src="images/rebootByTelnetWorksOnC2.png" />
 I'm in and it works. Yay!
 
 
-<img  width="61%" src="images/noTelnetOnC7.png" />
+<img  width="80%" src="images/noTelnetOnC7.png" />
 But another of my routers doesn't have telnet running. Darn it!
 
 
@@ -32,6 +32,6 @@ Selenium to the rescue! I thought I just write some UI tests that log into the w
 Right now I only support some of my problematic routers: TP-LINK Archer C2 and the Archer C7, latest firmware.
 
 
-<img  width="61%" src="images/Reboot.gif" />
+<img  width="90%" src="images/Reboot.gif" />
 
 Next step is deploying this to a raspi that's always on (I've got a Rapberry Pi Zero that runs my LanClients project) and fire the router reboot every night at 3:00 a.m. with a cron job.
