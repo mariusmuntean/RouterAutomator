@@ -21,6 +21,7 @@ Let's try telnet:
 <img  width="61%" src="images/rebootByTelnetWorksOnC2.png" />
 I'm in and it works. Yay!
 
+
 <img  width="61%" src="images/noTelnetOnC7.png" />
 But another of my routers doesn't have telnet running. Darn it!
 
