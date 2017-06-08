@@ -1,8 +1,5 @@
-import shutil
 import sys
 import time
-from pathlib import Path
-import os
 
 sys.path.append("selenium-3.4.3")
 

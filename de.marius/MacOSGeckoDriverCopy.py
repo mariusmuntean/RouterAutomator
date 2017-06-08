@@ -11,7 +11,10 @@ class MacOSGeckDriverCopy(BaseGeckoDriverCopy):
         gekoDriver = Path(expectedDriverPath)
         if not gekoDriver.is_file():
             shutil.copyfile("drivers/geko/macOS/geckodriver", expectedDriverPath)
-            os.chmod(expectedDriverPath, 0o755)
-            print("Gecko driver was copied and its permissions were set")
+            filePermissions = "755"
+            os.chmod(expectedDriverPath, int(filePermissions, 8))
+            print("Gecko driver was copied to "
+                  + expectedDriverPath
+                  + " and its permissions were set to " + filePermissions)
         else:
             print("Gecko driver already present")
