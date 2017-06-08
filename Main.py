@@ -1,5 +1,7 @@
 import sys
 
+import time
+
 sys.path.append("selenium-3.4.3")
 
 from routers.RouterFactory import RouterFactory
@@ -14,6 +16,7 @@ password = "admin"
 
 driver = webdriver.Firefox()
 
+time.sleep(5)
 router = RouterFactory(driver, webInterfaceUrl).getRouter()
 router.logIn(username, password)
 router.reboot()
