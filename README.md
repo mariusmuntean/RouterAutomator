@@ -33,3 +33,5 @@ Right now I only support some of my problematic routers: TP-LINK Archer C2 and t
 
 
 <img  width="61%" src="images/Reboot.gif" />
+
+Next step is deploying this to a raspi that's always on (I've got a Rapberry Pi Zero that runs my LanClients project) and fire the router reboot every night at 3:00 a.m. with a cron job.
