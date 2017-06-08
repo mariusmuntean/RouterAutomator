@@ -11,6 +11,7 @@ So the next thing would be to run a script somewhere that connects to the router
 A quick portscan with the useful IP Scanner tool (http://10base-t.com/macintosh-software/ip-scanner/) revealed that SSH and TELNET are available
 
 Let's try SSH:
+
 <img  width="61%" src="images/SshIsNotForUs.png" />
 Fail, they keep ssh around only for the Tether 2.0 App
 
