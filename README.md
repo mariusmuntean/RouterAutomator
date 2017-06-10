@@ -1,5 +1,5 @@
 This little project allows you to automate tasks on your router.
-It uses Selenium and the gecko web driver.
+It's written in Python and it uses Selenium and the gecko web driver, so you need to have Firefox to get it running.
 
 Background:
 A few of my routers need to be rebooted periodically, otherwise they slow down. The obvious approach is to schedule them to reboot, BUT TP-LINK doesnt think that's something normal users want, so no such option is provided.
