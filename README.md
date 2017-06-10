@@ -27,11 +27,11 @@ Finally run Main.py like so: `python3 Main.py`
 **Background**:
 A few of my routers need to be rebooted periodically, otherwise they slow down. The obvious approach is to schedule them to reboot, BUT TP-LINK doesnt think that's something normal users want, so no such option is provided.
 
-So the next thing would be to run a script somewhere that connects to the router and reboot the thing. But how exactly?
-
-<img  width="80%" src="images/SomethingToWorkWith.png?raw=true" />
+So the next thing would be to run a script somewhere that connects to the router and reboots the thing. But how exactly?
 
 A quick portscan with the useful IP Scanner tool (http://10base-t.com/macintosh-software/ip-scanner/) revealed that SSH and TELNET are available
+
+<img  width="80%" src="images/SomethingToWorkWith.png?raw=true" />
 
 Let's try SSH:
 
@@ -45,8 +45,8 @@ Let's try telnet:
 I'm in and it works. Yay!
 
 
-<img  width="80%" src="images/noTelnetOnC7.png" />
 But another of my routers doesn't have telnet running. Darn it!
+<img  width="80%" src="images/noTelnetOnC7.png" />
 
 
 A crude alternative would be a power switch with a timer, but come on, we're both on github for the sweet sweet code :D
