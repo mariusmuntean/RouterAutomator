@@ -1,7 +1,30 @@
+**Description:**
 This little project allows you to automate tasks on your router.
-It's written in Python and it uses Selenium and the gecko web driver, so you need to have Firefox to get it running.
+It's written in Python 3 and it uses Selenium and the gecko web driver, so you need to have Firefox to get it running.
 
-Background:
+To use it make sure you have Python 3 and Firefox installed. Then edit the Config.ini file to your needs.
+
+Example:
+
+    `[actions]
+    rebootMainRouter: true
+    anotherAction: false
+    
+    [rebootMainRouter]
+    routerIP: http://192.168.0.1
+    username: admin
+    password: admin
+    tasks: login,reboot
+    
+    [anotherAction]
+    routerIP: http://192.168.0.3
+    username: admin
+    password: admin
+    tasks: login, reboot`
+
+Finally run Main.py like so: `python3 Main.py`
+
+**Background**:
 A few of my routers need to be rebooted periodically, otherwise they slow down. The obvious approach is to schedule them to reboot, BUT TP-LINK doesnt think that's something normal users want, so no such option is provided.
 
 So the next thing would be to run a script somewhere that connects to the router and reboot the thing. But how exactly?
@@ -35,4 +58,6 @@ Right now I only support some of my problematic routers: TP-LINK Archer C2 and t
 
 <img  width="90%" src="images/Reboot.gif" />
 
+
+**ToDo:**
 Next step is deploying this to a raspi that's always on (I've got a Rapberry Pi Zero that runs my LanClients project) and fire the router reboot every night at 3:00 a.m. with a cron job.

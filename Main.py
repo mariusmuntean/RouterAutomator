@@ -1,6 +1,10 @@
 import sys
 
 import time
+import os
+from configparser import ConfigParser
+
+from routers.BaseRouter import BaseRouter
 
 sys.path.append("selenium-3.4.3")
 
@@ -8,20 +12,57 @@ from routers.RouterFactory import RouterFactory
 from selenium import webdriver
 from DriverSetup import DriverSetup
 
+
+def initConfig():
+    config = ConfigParser()
+    configPath = os.path.join(os.getcwd(), "Config.ini")
+    config.read(filenames=configPath)
+    sections = config.sections();
+    if len(sections) == 0 or (not sections.__contains__("actions")):
+        print("Config file is empty. Bye!")
+        quit()
+    if len(config.items("actions")) == 0:
+        print("Nothing to do. Bye!")
+        quit()
+    return config
+
+
+def handleRouterTask(router: BaseRouter, username: str, password: str, task: str):
+    # ToDo: this can be done a lot nicer
+
+    if task == 'login':
+        router.logIn(username, password)
+    elif task == 'reboot':
+        router.reboot()
+
+
+def performActions(config: ConfigParser, actions):
+    for action in actions:
+        webInterfaceUrl = config.get(action, "routerIP")
+        username = config.get(action, "username")
+        password = config.get(action, "password")
+        tasks = config.get(action, "tasks")
+        tasks = [task.strip() for task in tasks.split(',')]
+        print("IP: " + webInterfaceUrl
+              + " username: " + username
+              + " password: " + password
+              + " tasks: " + tasks.__str__())
+
+        driver = webdriver.Firefox()
+        router = RouterFactory(driver, webInterfaceUrl).getRouter()
+        for task in tasks:
+            handleRouterTask(router, username, password, task)
+            time.sleep(1)
+        driver.close()
+
+
+# Initialize the webdriver
 DriverSetup().init()
 
-webInterfaceUrl = "http://192.168.0.2/";
-username = "admin"
-password = "admin"
+# Parse the Config
+config = initConfig()
 
-driver = webdriver.Firefox()
-
-time.sleep(5)
-router = RouterFactory(driver, webInterfaceUrl).getRouter()
-router.logIn(username, password)
-router.reboot()
-
-# Scratchpad
-# driver.switch_to_frame()
-
-driver.close()
+# Run any active actions
+activeActionTuples = filter(lambda action: action[1] == 'true', config.items("actions"))
+activeActionNames = map(lambda action: action[0], activeActionTuples)
+performActions(config, activeActionNames)

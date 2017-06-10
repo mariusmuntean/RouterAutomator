@@ -16,6 +16,7 @@ class ArcherC7(BaseRouter):
         passwordInput.clear()
         passwordInput.send_keys(password)
 
+
         loginButton = self.webdriver.find_element_by_id("loginBtn")
         loginButton.click()
         time.sleep(2)
