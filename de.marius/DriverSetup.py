@@ -1,10 +1,12 @@
+import os
+import platform
+import sys
 from enum import Enum
 
-import sys
-import platform
-
-from LinuxGeckoDriverCopy import LinuxGeckDriverCopy
-from MacOSGeckoDriverCopy import MacOSGeckDriverCopy
+from BasePlatformInitializer import BasePlatformInitializer
+from DesktopLinuxPlatformInitializer import DesktopLinuxPlatformInitializer
+from platforms.LinuxGeckoDriverCopy import LinuxGeckDriverCopy
+from platforms.MacOSGeckoDriverCopy import MacOSGeckDriverCopy
 
 
 class Platform(Enum):
@@ -16,7 +18,19 @@ class Platform(Enum):
 
 
 class DriverSetup():
-    def getCurrentPlatform(self):
+    def init(self):
+        """
+        Makes sure the platform-specific web driver is available to Selenium and that any platform-specific initialization is performed
+        """
+        currentPlatform = self.getCurrentPlatform()
+
+        geckoDriverCopy = self.getGeckoDriverCopy(currentPlatform)
+        self.driverPath = geckoDriverCopy.copy()
+
+        platformInitializer = self.getPlatformInitializer(currentPlatform)
+        platformInitializer.initialize()
+
+    def getCurrentPlatform(self) -> Platform:
         """
         Determines the current platform(operating system)
 
@@ -28,7 +42,8 @@ class DriverSetup():
             return Platform.macOS
 
         if sys.platform == "linux":
-            (distName, version, id) = platform._linux_distribution()
+            (distName, version, id) = platform.linux_distribution()
+
             print("Linux " + distName)
             if distName == "raspbian":
                 return Platform.arm7hf
@@ -39,7 +54,7 @@ class DriverSetup():
             distName, version, id = platform._linux_distribution()
             return Platform.win32
 
-    def getGeckoDriverCopy(self, platform):
+    def getGeckoDriverCopy(self, platform: Platform):
         """
         Given a supported platform it returns a concrete instance of BaseGeckoDriverCopy
         :param platform: The current platform
@@ -50,10 +65,11 @@ class DriverSetup():
         elif platform == Platform.linux:
             return LinuxGeckDriverCopy()
 
-    def init(self):
-        """
-        Makes sure the platform-specific web driver is available to Selenium
-        """
-        currentPlatform = self.getCurrentPlatform()
-        geckoDriverCopy = self.getGeckoDriverCopy(currentPlatform)
-        geckoDriverCopy.copy()
+    def getPlatformInitializer(self, platform: Platform) -> BasePlatformInitializer:
+        if platform == Platform.macOS:
+            return BasePlatformInitializer()
+        elif platform == Platform.linux:
+            return DesktopLinuxPlatformInitializer()
+
+    def getDriverPath(self) -> str:
+        return self.driverPath

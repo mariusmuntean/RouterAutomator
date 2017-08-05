@@ -4,8 +4,11 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/selenium-3.4.3" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/de.marius" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/de.marius/routers" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/selenium-3.4.3/selenium" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/de.marius/platforms" isTestSource="false" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Remote Python 3.5.2 (ssh://parallels@192.168.64.2:22/usr/bin/python3.5)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TestRunnerService">

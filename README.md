@@ -6,7 +6,7 @@ To use it make sure you have Python 3 and Firefox installed. Then edit the Confi
 
 Example:
 
-    `[actions]
+    [actions]
     rebootMainRouter: true
     anotherAction: false
     
@@ -20,9 +20,13 @@ Example:
     routerIP: http://192.168.0.3
     username: admin
     password: admin
-    tasks: login, reboot`
+    tasks: login, reboot
 
 Finally run Main.py like so: `python3 Main.py`
+
+Tested on:
+*   macOS Sierra 10.12.5
+*   Ubuntu Ubuntu 16.04 LTS
 
 **Background**:
 A few of my routers need to be rebooted periodically, otherwise they slow down. The obvious approach is to schedule them to reboot, BUT TP-LINK doesnt think that's something normal users want, so no such option is provided.

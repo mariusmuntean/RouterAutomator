@@ -1,4 +1,8 @@
+import sys
+
 from abc import ABC, abstractmethod
+
+sys.path.append("../../selenium-3.4.3")
 
 from selenium import webdriver
 

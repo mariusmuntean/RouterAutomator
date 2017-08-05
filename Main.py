@@ -4,6 +4,8 @@ import time
 import os
 from configparser import ConfigParser
 
+sys.path.append("de.marius")
+
 from routers.BaseRouter import BaseRouter
 
 sys.path.append("selenium-3.4.3")
@@ -36,7 +38,7 @@ def handleRouterTask(router: BaseRouter, username: str, password: str, task: str
         router.reboot()
 
 
-def performActions(config: ConfigParser, actions):
+def performActions(driverPath: str, config: ConfigParser, actions):
     for action in actions:
         webInterfaceUrl = config.get(action, "routerIP")
         username = config.get(action, "username")
@@ -48,7 +50,7 @@ def performActions(config: ConfigParser, actions):
               + " password: " + password
               + " tasks: " + tasks.__str__())
 
-        driver = webdriver.Firefox()
+        driver = webdriver.Firefox(executable_path=driverPath)
         router = RouterFactory(driver, webInterfaceUrl).getRouter()
         for task in tasks:
             handleRouterTask(router, username, password, task)
@@ -57,7 +59,8 @@ def performActions(config: ConfigParser, actions):
 
 
 # Initialize the webdriver
-DriverSetup().init()
+driverSetup = DriverSetup()
+driverSetup.init()
 
 # Parse the Config
 config = initConfig()
@@ -65,4 +68,4 @@ config = initConfig()
 # Run any active actions
 activeActionTuples = filter(lambda action: action[1] == 'true', config.items("actions"))
 activeActionNames = map(lambda action: action[0], activeActionTuples)
-performActions(config, activeActionNames)
+performActions(driverSetup.getDriverPath(), config, activeActionNames)
