@@ -3,7 +3,7 @@ import os
 from BasePlatformInitializer import BasePlatformInitializer
 
 
-class DesktopLinuxPlatformInitializer(BasePlatformInitializer):
+class RaspiLinuxPlatformInitializer(BasePlatformInitializer):
     def initialize(self):
         # Make sure there is a DISPLAY environment variable and that it is set correctly
         if not 'DISPLAY' in os.environ:

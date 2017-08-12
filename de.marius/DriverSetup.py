@@ -1,10 +1,12 @@
-import os
 import platform
 import sys
 from enum import Enum
 
 from BasePlatformInitializer import BasePlatformInitializer
-from DesktopLinuxPlatformInitializer import DesktopLinuxPlatformInitializer
+from platforms.DesktopLinuxPlatformInitializer import DesktopLinuxPlatformInitializer
+from platforms.DoNothingPlatformInitializer import DoNothingPlatformInitializer
+from platforms.RaspbianGeckoDriverCopy import RaspbianGeckDriverCopy
+from platforms.RaspiLinuxPlatformInitializer import RaspiLinuxPlatformInitializer
 from platforms.LinuxGeckoDriverCopy import LinuxGeckDriverCopy
 from platforms.MacOSGeckoDriverCopy import MacOSGeckDriverCopy
 
@@ -15,6 +17,7 @@ class Platform(Enum):
     win32 = 3
     linux = 4
     arm7hf = 5
+    arm6hf = 6
 
 
 class DriverSetup():
@@ -45,7 +48,7 @@ class DriverSetup():
             (distName, version, id) = platform.linux_distribution()
 
             print("Linux " + distName)
-            if distName == "raspbian":
+            if distName == "debian":
                 return Platform.arm7hf
             else:
                 return Platform.linux
@@ -64,12 +67,18 @@ class DriverSetup():
             return MacOSGeckDriverCopy()
         elif platform == Platform.linux:
             return LinuxGeckDriverCopy()
+        elif platform == Platform.arm7hf:
+            return RaspbianGeckDriverCopy()
 
     def getPlatformInitializer(self, platform: Platform) -> BasePlatformInitializer:
         if platform == Platform.macOS:
-            return BasePlatformInitializer()
+            return DoNothingPlatformInitializer()
         elif platform == Platform.linux:
             return DesktopLinuxPlatformInitializer()
+        elif platform == Platform.arm7hf:
+            return RaspiLinuxPlatformInitializer()
+        else:
+            return DoNothingPlatformInitializer()
 
     def getDriverPath(self) -> str:
         return self.driverPath

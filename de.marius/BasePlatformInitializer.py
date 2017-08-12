@@ -7,5 +7,4 @@ class BasePlatformInitializer(ABC):
         """
         Perform platform-specific initialization
         """
-        
-        print("No initialization needed for this platform")
+        pass
