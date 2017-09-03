@@ -51,6 +51,7 @@ def performActions(driverPath: str, config: ConfigParser, actions):
               + " tasks: " + tasks.__str__())
 
         driver = webdriver.Firefox(executable_path=driverPath)
+        driver.implicitly_wait(100) # seconds
         router = RouterFactory(driver, webInterfaceUrl).getRouter()
         for task in tasks:
             handleRouterTask(router, username, password, task)
