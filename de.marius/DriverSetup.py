@@ -2,22 +2,25 @@ import platform
 import sys
 from enum import Enum
 
+from platforms.raspbian.RaspbianGeckoDriverCopy import RaspbianGeckDriverCopy
+
 from BasePlatformInitializer import BasePlatformInitializer
-from platforms.DesktopLinuxPlatformInitializer import DesktopLinuxPlatformInitializer
+from platforms.linux.DesktopLinuxPlatformInitializer import DesktopLinuxPlatformInitializer
+from platforms.linux.DesktopLinuxGeckoDriverCopy import LinuxGeckDriverCopy
+from platforms.macOS.MacOSGeckoDriverCopy import MacOSGeckDriverCopy
 from platforms.DoNothingPlatformInitializer import DoNothingPlatformInitializer
-from platforms.RaspbianGeckoDriverCopy import RaspbianGeckDriverCopy
-from platforms.RaspiLinuxPlatformInitializer import RaspiLinuxPlatformInitializer
-from platforms.LinuxGeckoDriverCopy import LinuxGeckDriverCopy
-from platforms.MacOSGeckoDriverCopy import MacOSGeckDriverCopy
+from platforms.raspbian.RaspbianPlatformInitializer import RaspbianPlatformInitializer
 
 
 class Platform(Enum):
+    """
+    Represents the OS and CPU architecture as a 'Platform'
+    """
     macOS = 1
-    win64 = 2
-    win32 = 3
-    linux = 4
-    arm7hf = 5
-    arm6hf = 6
+    win_32 = 2
+    win_64 = 3
+    linux_32 = 4
+    raspbian = 5
 
 
 class DriverSetup():
@@ -35,7 +38,7 @@ class DriverSetup():
 
     def getCurrentPlatform(self) -> Platform:
         """
-        Determines the current platform(operating system)
+        Determines the current platform (operating system and CPU architecture)
 
         :return: An Enum value from Platform
         """
@@ -49,12 +52,12 @@ class DriverSetup():
 
             print("Linux " + distName)
             if distName == "debian":
-                return Platform.arm7hf
+                return Platform.raspbian
             else:
-                return Platform.linux
-
+                return Platform.linux_32
+        # Untested
         if sys.platform == "win32":
-            distName, version, id = platform._linux_distribution()
+            # distName, version, id = platform._linux_distribution()
             return Platform.win32
 
     def getGeckoDriverCopy(self, platform: Platform):
@@ -65,18 +68,18 @@ class DriverSetup():
         """
         if platform == Platform.macOS:
             return MacOSGeckDriverCopy()
-        elif platform == Platform.linux:
+        elif platform == Platform.linux_32:
             return LinuxGeckDriverCopy()
-        elif platform == Platform.arm7hf:
+        elif platform == Platform.raspbian:
             return RaspbianGeckDriverCopy()
 
     def getPlatformInitializer(self, platform: Platform) -> BasePlatformInitializer:
         if platform == Platform.macOS:
             return DoNothingPlatformInitializer()
-        elif platform == Platform.linux:
+        elif platform == Platform.linux_32:
             return DesktopLinuxPlatformInitializer()
-        elif platform == Platform.arm7hf:
-            return RaspiLinuxPlatformInitializer()
+        elif platform == Platform.raspbian:
+            return RaspbianPlatformInitializer()
         else:
             return DoNothingPlatformInitializer()
 

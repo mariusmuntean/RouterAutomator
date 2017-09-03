@@ -8,7 +8,7 @@
       <sourceFolder url="file://$MODULE_DIR$/selenium-3.4.3/selenium" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/de.marius/platforms" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="Remote Python 3.4.2 (sftp://pi@192.168.0.206:22/usr/bin/python3.4)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Raspi_Zero" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TestRunnerService">

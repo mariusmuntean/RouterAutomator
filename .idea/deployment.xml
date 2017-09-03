@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="ParallelsUbuntu">
+  <component name="PublishConfigData" autoUpload="Always" serverName="Raspi">
     <serverData>
       <paths name="Copy of project-level server 'Copy of project-level server 'Raspi''">
         <serverdata>
@@ -26,10 +26,18 @@
       <paths name="Raspi">
         <serverdata>
           <mappings>
-            <mapping deploy="/home/pi/RouterAtomator" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/home/pi/RouterAutomator" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="Raspi_3">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/pi/RouterAutomator" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
     </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>

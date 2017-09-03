@@ -4,6 +4,8 @@ from routers.BaseRouter import BaseRouter
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class ArcherC2(BaseRouter):
@@ -21,11 +23,18 @@ class ArcherC2(BaseRouter):
         time.sleep(2)
 
     def reboot(self):
+        f = open("/home/pi/RouterAutomator/page.html", 'w+')
+        f.write(self.webdriver.page_source)
+
         menuFrame = self.webdriver.find_element_by_name("bottomLeftFrame")
         self.webdriver.switch_to_frame(menuFrame)
 
-        systemToolsMenuItem = self.webdriver.find_element_by_id("menu_tools")
-        systemToolsMenuItem.click()
+        wait = WebDriverWait(self.webdriver, 100)
+        wait.until(EC.presence_of_element_located((By.ID, "menu_tools"))).click()
+
+        # systemToolsMenuItem = self.webdriver.find_element_by_id("menu_tools")
+        # systemToolsMenuItem = self.webdriver.find_element_by_xpath("//*[contains(text(), 'System Tools')]")
+        # systemToolsMenuItem.click()
         time.sleep(2)
 
         rebootSubMenuItem = self.webdriver.find_element_by_id("menu_restart")

@@ -10,8 +10,16 @@
           <option name="port" value="22" />
         </fileTransfer>
       </webServer>
-      <webServer id="d8ffc889-7680-4dc4-9580-afb6bb054927" name="Raspi" url="http://192.168.0.206">
-        <fileTransfer host="192.168.0.206" port="22" accessType="SFTP">
+      <webServer id="d8ffc889-7680-4dc4-9580-afb6bb054927" name="Raspi" url="http://192.168.0.125">
+        <fileTransfer host="192.168.0.125" port="22" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="dd0fa31b-d9e0-4b60-bc18-1c941b2bdb5d" name="Raspi_3" url="http://192.168.0.24">
+        <fileTransfer host="192.168.0.24" port="22" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" />
           </advancedOptions>
