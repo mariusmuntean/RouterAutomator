@@ -2,6 +2,8 @@ import os
 import sys
 from configparser import ConfigParser
 
+from Logger import Logger, LogLevel
+
 sys.path.append("de.marius")
 
 from routers.BaseRouter import BaseRouter
@@ -19,10 +21,10 @@ def initConfig():
     config.read(filenames=configPath)
     sections = config.sections();
     if len(sections) == 0 or (not sections.__contains__("actions")):
-        print("Config file is empty. Bye!")
+        Logger.logInfo("Config file is empty. Bye!")
         quit()
     if len(config.items("actions")) == 0:
-        print("Nothing to do. Bye!")
+        Logger.logInfo("Nothing to do. Bye!")
         quit()
     return config
 
@@ -39,33 +41,36 @@ def handleRouterTask(router: BaseRouter, username: str, password: str, task: str
 
 
 def performActions(driverPath: str, config: ConfigParser, actions):
-    print("")
+    Logger.logInfo("")
     for action in actions:
-        print("Performing action: " + action)
+        Logger.logInfo("Performing action: " + action)
         webInterfaceUrl = config.get(action, "routerIP")
         username = config.get(action, "username")
         password = config.get(action, "password")
         tasks = config.get(action, "tasks")
         tasks = [task.strip() for task in tasks.split(',')]
-        print("IP: " + webInterfaceUrl
-              + " username: " + username
-              + " password: " + password
-              + " tasks: " + tasks.__str__())
+        Logger.logInfo("IP: " + webInterfaceUrl
+                       + " username: " + username
+                       + " password: " + password
+                       + " tasks: " + tasks.__str__())
 
         driver = webdriver.Firefox(executable_path=driverPath)
         router = RouterFactory(driver, webInterfaceUrl).getRouter()
         for task in tasks:
             handleRouterTask(router, username, password, task)
-            print("Performed task: " + task)
+            Logger.logInfo("Performed task: " + task)
         driver.close()
-        print("Finished action: " + action)
-    print("##### Router Automator Done #####")
-    print("")
+        Logger.logInfo("Finished action: " + action)
+    Logger.logInfo("##### Router Automator Done #####")
+    Logger.logInfo("")
 
+
+# Initialize logging
+Logger.init("RouterAutomator.log", LogLevel.INFO)
 
 # Initialize the webdriver
-print("")
-print("####### Router Automator #######")
+Logger.logInfo("")
+Logger.logInfo("####### Router Automator #######")
 driverSetup = DriverSetup()
 driverSetup.init()
 

@@ -3,6 +3,7 @@ import shutil
 from pathlib import Path
 
 from BaseGeckoDriverCopy import BaseGeckoDriverCopy
+from Logger import Logger
 
 
 class MacOSGeckDriverCopy(BaseGeckoDriverCopy):
@@ -13,10 +14,10 @@ class MacOSGeckDriverCopy(BaseGeckoDriverCopy):
             shutil.copyfile("drivers/gecko/macOS/geckodriver", expectedDriverPath)
             filePermissions = "755"
             os.chmod(expectedDriverPath, int(filePermissions, 8))
-            print("Gecko driver was copied to "
-                  + expectedDriverPath
-                  + " and its permissions were set to " + filePermissions)
+            Logger.logInfo("Gecko driver was copied to "
+                           + expectedDriverPath
+                           + " and its permissions were set to " + filePermissions)
         else:
-            print("Gecko driver already present")
+            Logger.logInfo("Gecko driver already present")
 
         return expectedDriverPath

@@ -1,5 +1,6 @@
 import time
 
+from Logger import Logger
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -40,7 +41,7 @@ class ArcherC7(BaseRouter):
         time.sleep(1)
 
         self.webdriver.switch_to_alert().accept()
-        print("Router rebooting")
+        Logger.logInfo("Router rebooting")
 
         time.sleep(4)
 

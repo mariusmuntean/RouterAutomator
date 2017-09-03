@@ -3,13 +3,14 @@ import subprocess
 from pathlib import Path
 
 from BaseGeckoDriverCopy import BaseGeckoDriverCopy
+from Logger import Logger
 
 
 class RaspbianGeckDriverCopy(BaseGeckoDriverCopy):
     def copy(self):
 
         expectedDriverPath = self.getDriverPath()
-        print("Using the gecko driver from: " + expectedDriverPath)
+        Logger.logInfo("Using the gecko driver from: " + expectedDriverPath)
 
         gekoDriver = Path(expectedDriverPath)
 

@@ -2,6 +2,7 @@ import platform
 import sys
 from enum import Enum
 
+from Logger import Logger
 from platforms.raspbian.RaspbianGeckoDriverCopy import RaspbianGeckDriverCopy
 
 from BasePlatformInitializer import BasePlatformInitializer
@@ -29,7 +30,7 @@ class DriverSetup():
         Makes sure the platform-specific web driver is available to Selenium and that any platform-specific initialization is performed
         """
         currentPlatform = self.getCurrentPlatform()
-        print("Discovered platform: " + str(currentPlatform))
+        Logger.logInfo("Discovered platform: " + str(currentPlatform))
 
         geckoDriverCopy = self.getGeckoDriverCopy(currentPlatform)
         self.driverPath = geckoDriverCopy.copy()

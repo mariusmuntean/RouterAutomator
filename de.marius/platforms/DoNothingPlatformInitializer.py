@@ -1,6 +1,7 @@
 from BasePlatformInitializer import BasePlatformInitializer
+from Logger import Logger
 
 
 class DoNothingPlatformInitializer(BasePlatformInitializer):
     def initialize(self):
-        print("No initialization needed for this platform")
+        Logger.logInfo("No initialization needed for this platform")
