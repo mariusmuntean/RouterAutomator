@@ -1,9 +1,9 @@
 import time
 
-from routers.BaseRouter import BaseRouter
-
-from selenium import webdriver
+from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from routers.BaseRouter import BaseRouter
 
 
 class ArcherC7(BaseRouter):
@@ -16,32 +16,38 @@ class ArcherC7(BaseRouter):
         passwordInput.clear()
         passwordInput.send_keys(password)
 
-
         loginButton = self.webdriver.find_element_by_id("loginBtn")
         loginButton.click()
         time.sleep(2)
 
     def reboot(self):
-        menuFrame = self.webdriver.find_element_by_name("bottomLeftFrame")
+        wait = WebDriverWait(self.webdriver, 200)
+
+        menuFrame = wait.until(EC.presence_of_element_located((By.NAME, "bottomLeftFrame")))
         self.webdriver.switch_to_frame(menuFrame)
 
-        systemToolsMenuItem = self.webdriver.find_element_by_id("a64")
-        systemToolsMenuItem.click()
+        wait.until(EC.presence_of_element_located((By.ID, "a64"))).click()
         time.sleep(2)
 
-        rebootSubMenuItem = self.webdriver.find_element_by_id("a70")
-        rebootSubMenuItem.click()
+        wait.until(EC.presence_of_element_located((By.ID, "a70"))).click()
         time.sleep(2)
 
         self.webdriver.switch_to_default_content()
-        mainFrame = self.webdriver.find_element_by_name("mainFrame")
+        mainFrame = wait.until(EC.presence_of_element_located((By.NAME, "mainFrame")))
         self.webdriver.switch_to_frame(mainFrame)
 
-        rebootButton = self.webdriver.find_element_by_id("reboot")
-        rebootButton.click()
+        wait.until(EC.presence_of_element_located((By.ID, "reboot"))).click()
         time.sleep(1)
 
         self.webdriver.switch_to_alert().accept()
+        print("Router rebooting")
+
         time.sleep(4)
 
-        print("Router rebooting")
+    def logOut(self):
+        wait = WebDriverWait(self.webdriver, 200)
+
+        menuFrame = wait.until(EC.presence_of_element_located((By.NAME, "bottomLeftFrame")))
+        self.webdriver.switch_to_frame(menuFrame)
+
+        wait.until(EC.presence_of_element_located((By.ID, "a74"))).click()

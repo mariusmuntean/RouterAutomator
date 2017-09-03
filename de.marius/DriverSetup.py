@@ -29,6 +29,7 @@ class DriverSetup():
         Makes sure the platform-specific web driver is available to Selenium and that any platform-specific initialization is performed
         """
         currentPlatform = self.getCurrentPlatform()
+        print("Discovered platform: " + str(currentPlatform))
 
         geckoDriverCopy = self.getGeckoDriverCopy(currentPlatform)
         self.driverPath = geckoDriverCopy.copy()
@@ -44,13 +45,10 @@ class DriverSetup():
         """
         if sys.platform == "darwin":
             (release, version, machine) = platform.mac_ver()
-            print("macOS: " + release)
             return Platform.macOS
 
         if sys.platform == "linux":
             (distName, version, id) = platform.linux_distribution()
-
-            print("Linux " + distName)
             if distName == "debian":
                 return Platform.raspbian
             else:

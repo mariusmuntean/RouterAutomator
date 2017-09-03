@@ -1,7 +1,5 @@
-import sys
-
-import time
 import os
+import sys
 from configparser import ConfigParser
 
 sys.path.append("de.marius")
@@ -36,10 +34,14 @@ def handleRouterTask(router: BaseRouter, username: str, password: str, task: str
         router.logIn(username, password)
     elif task == 'reboot':
         router.reboot()
+    elif task == 'logout':
+        router.logOut()
 
 
 def performActions(driverPath: str, config: ConfigParser, actions):
+    print("")
     for action in actions:
+        print("Performing action: " + action)
         webInterfaceUrl = config.get(action, "routerIP")
         username = config.get(action, "username")
         password = config.get(action, "password")
@@ -51,15 +53,19 @@ def performActions(driverPath: str, config: ConfigParser, actions):
               + " tasks: " + tasks.__str__())
 
         driver = webdriver.Firefox(executable_path=driverPath)
-        driver.implicitly_wait(100) # seconds
         router = RouterFactory(driver, webInterfaceUrl).getRouter()
         for task in tasks:
             handleRouterTask(router, username, password, task)
-            time.sleep(1)
+            print("Performed task: " + task)
         driver.close()
+        print("Finished action: " + action)
+    print("##### Router Automator Done #####")
+    print("")
 
 
 # Initialize the webdriver
+print("")
+print("####### Router Automator #######")
 driverSetup = DriverSetup()
 driverSetup.init()
 

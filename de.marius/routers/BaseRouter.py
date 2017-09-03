@@ -28,3 +28,10 @@ class BaseRouter(ABC):
         Reboots the router. First call logIn()
         """
         pass
+
+    @abstractmethod
+    def logOut(self):
+        """
+        Logs out of the router#s webinterface
+        """
+        pass
