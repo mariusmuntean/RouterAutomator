@@ -1,5 +1,8 @@
 import time
 
+import sys
+sys.path.append("../../selenium-3.4.3")
+
 from Logger import Logger
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By

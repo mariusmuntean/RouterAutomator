@@ -1,4 +1,5 @@
 import sys
+sys.path.append("../../selenium-3.4.3")
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -7,9 +8,12 @@ from selenium.webdriver.support.wait import WebDriverWait
 from routers.ArcherC2 import ArcherC2
 from routers.ArcherC7 import ArcherC7
 from routers.BaseRouter import BaseRouter
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
+
 
 sys.path.append("selenium-3.4.3")
+
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
+
 
 from selenium import webdriver
 

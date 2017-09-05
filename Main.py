@@ -2,17 +2,17 @@ import os
 import sys
 from configparser import ConfigParser
 
-from Logger import Logger, LogLevel
 
 sys.path.append("de.marius")
+sys.path.append("selenium-3.4.3")
 
 from routers.BaseRouter import BaseRouter
 
-sys.path.append("selenium-3.4.3")
 
 from routers.RouterFactory import RouterFactory
 from selenium import webdriver
 from DriverSetup import DriverSetup
+from Logger import Logger, LogLevel
 
 
 def initConfig():

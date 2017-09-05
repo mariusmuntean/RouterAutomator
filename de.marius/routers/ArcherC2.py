@@ -1,10 +1,13 @@
 import time
 
+import sys
+sys.path.append("../../selenium-3.4.3")
+
 from Logger import Logger
 from routers.BaseRouter import BaseRouter
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support.wait import WebDriverWait
 
 
 class ArcherC2(BaseRouter):
