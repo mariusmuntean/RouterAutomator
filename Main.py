@@ -2,12 +2,12 @@ import os
 import sys
 from configparser import ConfigParser
 
+from selenium.common.exceptions import WebDriverException
 
 sys.path.append("de.marius")
 sys.path.append("selenium-3.4.3")
 
 from routers.BaseRouter import BaseRouter
-
 
 from routers.RouterFactory import RouterFactory
 from selenium import webdriver
@@ -57,12 +57,23 @@ def performActions(driverPath: str, config: ConfigParser, actions):
         driver = webdriver.Firefox(executable_path=driverPath)
         router = RouterFactory(driver, webInterfaceUrl).getRouter()
         for task in tasks:
-            handleRouterTask(router, username, password, task)
-            Logger.logInfo("Performed task: " + task)
+            tryHandleRouterTask(password, router, task, username)
         driver.close()
         Logger.logInfo("Finished action: " + action)
+        Logger.logInfo("")
     Logger.logInfo("##### Router Automator Done #####")
     Logger.logInfo("")
+
+
+def tryHandleRouterTask(password, router, task, username):
+    try:
+        handleRouterTask(router, username, password, task)
+    except WebDriverException as wde:
+        Logger.logError("Performing task '" + task + "' produced exception: " + wde.__str__())
+    except:
+        Logger.logError("Unknown exception while performing task '" + task + "'")
+    finally:
+        Logger.logInfo("Performed task: " + task)
 
 
 # Initialize logging

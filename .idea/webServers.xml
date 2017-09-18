@@ -10,7 +10,7 @@
           <option name="port" value="22" />
         </fileTransfer>
       </webServer>
-      <webServer id="d8ffc889-7680-4dc4-9580-afb6bb054927" name="Raspi" url="http://raspberrypi-zero.local">
+      <webServer id="d8ffc889-7680-4dc4-9580-afb6bb054927" name="Raspi-Zero" url="http://raspberrypi-zero.local">
         <fileTransfer host="raspberrypi-zero.local" port="22" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" />
