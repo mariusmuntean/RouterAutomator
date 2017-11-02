@@ -1,4 +1,6 @@
 import sys
+
+
 sys.path.append("../../selenium-3.4.3")
 
 from selenium.webdriver.common.by import By
@@ -7,8 +9,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 from routers.ArcherC2 import ArcherC2
 from routers.ArcherC7 import ArcherC7
+from routers.OpenWrtLuCi import OpenWrtLuCi
 from routers.BaseRouter import BaseRouter
-
 
 sys.path.append("selenium-3.4.3")
 
@@ -43,9 +45,25 @@ class RouterFactory():
             c2 = False
         return c2
 
+    def isOpenWrtLuCi(self):
+        try:
+            wait = WebDriverWait(self.webdriver, 5)
+            footer = wait.until(EC.presence_of_element_located((By.TAG_NAME,'footer')))
+            hyperlink = footer.find_element(By.TAG_NAME,'a')
+            return "Powered by LuCI" in hyperlink.text
+
+            # Powered by LuCI
+        except NoSuchElementException:
+            luci = False
+        except TimeoutError:
+            luci = False
+        return luci
+
     def getRouter(self) -> BaseRouter:
         self.webdriver.get(self.webinterfaceUrl)
         if self.isArcherC7():
             return ArcherC7(self.webdriver, self.webinterfaceUrl)
         if self.isArcherC2():
             return ArcherC2(self.webdriver, self.webinterfaceUrl)
+        if self.isOpenWrtLuCi():
+            return OpenWrtLuCi(self.webdriver, self.webinterfaceUrl)

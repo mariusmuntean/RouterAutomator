@@ -1,11 +1,13 @@
 import os
 import sys
+sys.path.append("de.marius")
+sys.path.append("selenium-3.4.3")
+
+
 from configparser import ConfigParser
 
 from selenium.common.exceptions import WebDriverException
 
-sys.path.append("de.marius")
-sys.path.append("selenium-3.4.3")
 
 from routers.BaseRouter import BaseRouter
 

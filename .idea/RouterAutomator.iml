@@ -8,7 +8,7 @@
       <sourceFolder url="file://$MODULE_DIR$/selenium-3.4.3/selenium" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/de.marius/platforms" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="Raspi_Zero" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.5.1 (C:\Python35\python.exe)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TestRunnerService">

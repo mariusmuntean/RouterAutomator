@@ -9,8 +9,12 @@ from BasePlatformInitializer import BasePlatformInitializer
 from platforms.linux.DesktopLinuxPlatformInitializer import DesktopLinuxPlatformInitializer
 from platforms.linux.DesktopLinuxGeckoDriverCopy import LinuxGeckDriverCopy
 from platforms.macOS.MacOSGeckoDriverCopy import MacOSGeckDriverCopy
+from platforms.windows.Win32GeckoDriverCopy import Win32GeckoDriverCopy
+from platforms.windows.Win64GeckoDriverCopy import Win64GeckoDriverCopy
 from platforms.DoNothingPlatformInitializer import DoNothingPlatformInitializer
 from platforms.raspbian.RaspbianPlatformInitializer import RaspbianPlatformInitializer
+
+import BaseGeckoDriverCopy
 
 
 class Platform(Enum):
@@ -22,7 +26,6 @@ class Platform(Enum):
     win_64 = 3
     linux_32 = 4
     raspbian = 5
-
 
 class DriverSetup():
     def init(self):
@@ -54,12 +57,14 @@ class DriverSetup():
                 return Platform.raspbian
             else:
                 return Platform.linux_32
-        # Untested
         if sys.platform == "win32":
-            # distName, version, id = platform._linux_distribution()
-            return Platform.win32
+            if platform.machine().endswith('64'):
+                return Platform.win_64
+            else:
+                # Untested
+                return Platform.win_32
 
-    def getGeckoDriverCopy(self, platform: Platform):
+    def getGeckoDriverCopy(self, platform: Platform) -> BaseGeckoDriverCopy:
         """
         Given a supported platform it returns a concrete instance of BaseGeckoDriverCopy
         :param platform: The current platform
@@ -71,6 +76,10 @@ class DriverSetup():
             return LinuxGeckDriverCopy()
         elif platform == Platform.raspbian:
             return RaspbianGeckDriverCopy()
+        elif platform == Platform.win_32:
+            return Win32GeckoDriverCopy()
+        elif platform == Platform.win_64:
+            return Win64GeckoDriverCopy()
 
     def getPlatformInitializer(self, platform: Platform) -> BasePlatformInitializer:
         if platform == Platform.macOS:
