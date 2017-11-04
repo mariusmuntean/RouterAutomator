@@ -1,13 +1,12 @@
 import os
 import sys
+
 sys.path.append("de.marius")
 sys.path.append("selenium-3.4.3")
-
 
 from configparser import ConfigParser
 
 from selenium.common.exceptions import WebDriverException
-
 
 from routers.BaseRouter import BaseRouter
 
@@ -37,7 +36,7 @@ def handleRouterTask(router: BaseRouter, username: str, password: str, task: str
     if task == 'login':
         router.logIn(username, password)
     elif task == 'reboot':
-        router.reboot()
+        router.reboot(password)
     elif task == 'logout':
         router.logOut()
 

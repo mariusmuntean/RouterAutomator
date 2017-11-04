@@ -5,12 +5,14 @@ from abc import ABC, abstractmethod
 sys.path.append("../../selenium-3.4.3")
 
 from selenium import webdriver
+from selenium.webdriver.support.wait import WebDriverWait
 
 
 class BaseRouter(ABC):
-    def __init__(self, webDriver: webdriver, webinterfaceUrl):
-        self.webinterfaceUrl = webinterfaceUrl
+    def __init__(self, webDriver: webdriver, webinterfaceUrl: str):
+        self.webinterfaceUrl = webinterfaceUrl # type: str
         self.webdriver = webDriver  # type: webdriver
+        self.driverWait = WebDriverWait(self.webdriver, 200) # type: WebDriverWait
 
     @abstractmethod
     def logIn(self, username, password):
@@ -23,9 +25,10 @@ class BaseRouter(ABC):
         pass
 
     @abstractmethod
-    def reboot(self):
+    def reboot(self, password):
         """
         Reboots the router. First call logIn()
+        :param password:
         """
         pass
 
