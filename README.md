@@ -66,13 +66,13 @@ Right now I only support some of my problematic routers: TP-LINK Archer C2 and t
 
 **ToDo:**
 ~~Next step is deploying this to a raspi that's always on (I've got a Rapberry Pi Zero that runs my LanClients project) and fire the router reboot every night at 3:00 a.m. with a cron job.~~
-The RouterAutomator runs on a raspberry pi zero for some time now. Every night at 3 it restarts two access points and the main router.
+The RouterAutomator runs on a raspberry pi zero for some time now. Every night at 3:00 a.m. it restarts two access points and the main router.
 
 **Pro Tip:** This is obvious if you think about it, but if you don't then it will cause a lot of headaches - consider the order in which you reboot your APs/Routers.
 For example, given my simplified network topology (switches and powerline adapters are left out), the order in which I reboot them is B, A and finally C.
 
-              A
-              |
-            -----
-            |   |
-            B   C <-- Raspi Zero
+      A
+      |
+    -----
+    |   |
+    B   C <-- Raspi Zero
