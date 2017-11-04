@@ -69,7 +69,7 @@ def performActions(driverPath: str, config: ConfigParser, actions):
 def tryHandleRouterTask(password, router, task, username):
     try:
         handleRouterTask(router, username, password, task)
-    except WebDriverException as wde:
+    except Exception as wde:
         Logger.logError("Performing task '" + task + "' produced exception: " + wde.__str__())
     except:
         Logger.logError("Unknown exception while performing task '" + task + "'")
