@@ -27,6 +27,7 @@ Finally run Main.py like so: `python3 Main.py`
 Tested on:
 *   macOS Sierra 10.12.5
 *   Ubuntu Ubuntu 16.04 LTS
+*   Windows 10
 
 **Background**:
 A few of my routers need to be rebooted periodically, otherwise they slow down. The obvious approach is to schedule them to reboot, BUT TP-LINK doesnt think that's something normal users want, so no such option is provided.
@@ -64,4 +65,14 @@ Right now I only support some of my problematic routers: TP-LINK Archer C2 and t
 
 
 **ToDo:**
-Next step is deploying this to a raspi that's always on (I've got a Rapberry Pi Zero that runs my LanClients project) and fire the router reboot every night at 3:00 a.m. with a cron job.
+~~Next step is deploying this to a raspi that's always on (I've got a Rapberry Pi Zero that runs my LanClients project) and fire the router reboot every night at 3:00 a.m. with a cron job.~~
+The RouterAutomator runs on a raspberry pi zero for some time now. Every night at 3 it restarts two access points and the main router.
+
+**Pro Tip:** This is obvious if you think about it, but if you don't then it will cause a lot of headaches - consider the order in which you reboot your APs/Routers.
+For example, given my simplified network topology (switches and powerline adapters are left out), the order in which I reboot them is B, A and finally C.
+
+              A
+              |
+            -----
+            |   |
+            B   C <-- Raspi Zero
